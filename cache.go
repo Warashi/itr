@@ -2,7 +2,8 @@ package itr
 
 import "iter"
 
-func Cache[T any](it iter.Seq[T]) (iter.Seq[T], func()) {
+// Cache caches the elements of the iterator.
+func Cache[T any](it iter.Seq[T]) (_ iter.Seq[T], cleanup func()) {
 	var c []T
 	next, stop := iter.Pull(it)
 
