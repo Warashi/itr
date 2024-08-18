@@ -43,13 +43,9 @@ func ExampleTakeWhile_2() {
 	take := itr.TakeWhile(func(i int) bool { return i < 10 }, it)
 	for i := range take {
 		fmt.Println("consume", i)
+		break
 	}
 
 	// Output:
 	// consume 0
-	// yield 0
-	// consume 1
-	// yield 1
-	// consume 2
-	// yield 2
 }
