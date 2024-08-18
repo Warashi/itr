@@ -40,3 +40,26 @@ func ExampleSkip() {
 	// consume 9
 	// yield 9
 }
+
+func ExampleSkip_2() {
+	it := func(yield func(int) bool) {
+		for i := range 10 {
+			if !yield(i) {
+				return
+			}
+			fmt.Println("yield", i)
+		}
+	}
+
+	skip := itr.Skip(3, it)
+	for i := range skip {
+		fmt.Println("consume", i)
+		break
+	}
+
+	// Output:
+	// yield 0
+	// yield 1
+	// yield 2
+	// consume 3
+}
