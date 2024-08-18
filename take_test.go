@@ -2,16 +2,17 @@ package itr_test
 
 import (
 	"fmt"
-	"testing"
 
 	"github.com/Warashi/itr"
 )
 
-func ExampleTake(t *testing.T) {
+func ExampleTake() {
 	it := func(yield func(int) bool) {
 		for i := range 10 {
+			if !yield(i) {
+				return
+			}
 			fmt.Println("yield", i)
-			yield(i)
 		}
 	}
 
@@ -21,10 +22,10 @@ func ExampleTake(t *testing.T) {
 	}
 
 	// Output:
-	// yield 0
 	// consume 0
-	// yield 1
+	// yield 0
 	// consume 1
-	// yield 2
+	// yield 1
 	// consume 2
+	// yield 2
 }

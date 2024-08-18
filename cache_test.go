@@ -3,23 +3,24 @@ package itr_test
 import (
 	"fmt"
 	"iter"
-	"testing"
 
 	"github.com/Warashi/itr"
 )
 
-func ExampleCache(t *testing.T) {
+func ExampleCache() {
 	it := func() iter.Seq[int] {
 		return func(yield func(int) bool) {
 			for i := range 3 {
 				fmt.Println("yield", i)
-				yield(i)
+				if !yield(i) {
+					return
+				}
 			}
 		}
 	}
 
 	cached, stop := itr.Cache(it())
-	t.Cleanup(stop)
+	defer stop()
 
 	for i := range cached {
 		fmt.Println("consume", i)
